@@ -1,30 +1,39 @@
 import { auth } from "./firebaseConsole.js";
 
-document.getElementById("login-btn").addEventListener("click", () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    // Log in existing users
-    auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            alert("Login successful! Welcome to Luke's Help.");
-            window.location.href = "index.html";
-        })
-        .catch((error) => {
-            alert("Error: " + error.message);
-        });
-});
-
 document.getElementById("signup-btn").addEventListener("click", () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
 
-    // Sign up new users
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    // Use Firebase Authentication to create a user
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("Signup successful! You can now log in.");
+            // Signup successful
+            alert("Signup successful! Welcome to Luke's Help.");
+            window.location.href = "index.html"; // Redirect after signup
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            // Handle Firebase errors here
+            let errorMessage;
+            switch (error.code) {
+                case "auth/email-already-in-use":
+                    errorMessage = "This email is already in use. Try logging in instead.";
+                    break;
+                case "auth/invalid-email":
+                    errorMessage = "Please enter a valid email address.";
+                    break;
+                case "auth/weak-password":
+                    errorMessage = "Password must be at least 6 characters.";
+                    break;
+                default:
+                    errorMessage = error.message;
+            }
+            alert("Error: " + errorMessage);
         });
 });
