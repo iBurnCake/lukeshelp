@@ -7,24 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Login or Sign Up</h1>
+    <h1>Welcome to Luke's Help</h1>
     <form id="auth-form">
         <label for="email">Email:</label>
-        <input type="email" id="email" required><br>
+        <input type="email" id="email" placeholder="Enter your email" required><br>
         <label for="password">Password:</label>
-        <input type="password" id="password" required><br>
+        <input type="password" id="password" placeholder="Enter your password" required><br>
         <button id="login-btn" type="button">Login</button>
         <button id="signup-btn" type="button">Sign Up</button>
-    </form>
-    <p>Or login with your phone number:</p>
-    <form id="phone-auth-form">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" placeholder="+1234567890" required><br>
-        <div id="recaptcha-container"></div>
-        <button id="send-code-btn" type="button">Send Code</button><br>
-        <label for="otp">Enter OTP:</label>
-        <input type="text" id="otp"><br>
-        <button id="verify-code-btn" type="button">Verify Code</button>
     </form>
     <script type="module" src="script.js"></script>
 </body>
