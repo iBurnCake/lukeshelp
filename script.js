@@ -36,4 +36,10 @@ document.getElementById("signup-btn").addEventListener("click", () => {
             }
             alert("Error: " + errorMessage);
         });
+
+        // Redirect to signup.html when the Sign Up button is clicked
+document.getElementById("signup-btn").addEventListener("click", () => {
+    window.location.href = "signup.html"; // Redirect to the signup page
+});
+
 });
