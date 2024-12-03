@@ -1,38 +1,22 @@
 import { auth } from "./firebaseConsole.js";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-// Listen for the signup button click
-document.getElementById("signup-btn").addEventListener("click", () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
+document.addEventListener("DOMContentLoaded", () => {
+    const googleSignInButton = document.getElementById("google-signin-btn");
 
-    // Validate that passwords match
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
+    googleSignInButton.addEventListener("click", () => {
+        const provider = new GoogleAuthProvider();
 
-    // Create a new user in Firebase
-    auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            alert("Signup successful! Welcome to Luke's Help.");
-            window.location.href = "index.html"; // Redirect to login
-        })
-        .catch((error) => {
-            let errorMessage;
-            switch (error.code) {
-                case "auth/email-already-in-use":
-                    errorMessage = "This email is already in use. Try logging in instead.";
-                    break;
-                case "auth/invalid-email":
-                    errorMessage = "Please enter a valid email address.";
-                    break;
-                case "auth/weak-password":
-                    errorMessage = "Password must be at least 6 characters.";
-                    break;
-                default:
-                    errorMessage = error.message;
-            }
-            alert("Error: " + errorMessage);
-        });
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                console.log("User signed in:", user);
+                alert(`Welcome, ${user.displayName}!`);
+                window.location.href = "dashboard.html"; // Redirect to dashboard or home page
+            })
+            .catch((error) => {
+                console.error("Error during Google Sign-In:", error.message);
+                alert("Google Sign-In failed. Please try again.");
+            });
+    });
 });
