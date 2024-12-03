@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #bf9797;
     text-align: center;
     padding: 20px;
 }
@@ -11,7 +11,7 @@ h1 {
 }
 
 form {
-    background: #bf9797;
+    background: #f9f9f9;
     padding: 20px;
     margin: auto;
     width: 80%;
