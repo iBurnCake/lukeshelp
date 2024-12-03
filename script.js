@@ -1,5 +1,5 @@
-import { auth } from "./firebaseConsole.js";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "./firebaseConsole.js";
+import { signInWithPopup } from "firebase/auth";
 
 document.addEventListener("DOMContentLoaded", () => {
     const googleSignInButton = document.getElementById("google-signin-btn");
@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     googleSignInButton.addEventListener("click", () => {
         console.log("Google Sign-In button clicked!"); // Debugging log
 
-        const provider = new GoogleAuthProvider();
-
-        signInWithPopup(auth, provider)
+        // Use Firebase Auth to sign in with Google
+        signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
                 console.log("User signed in:", user);
